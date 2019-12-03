@@ -1,1 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
+
+$base-color: #000000;
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  padding: 50px;
+}
+
+h2 {
+    color: lighten( $base-color, 60% );
+}
+
+h1 h2 {
+  display: inline-block;
+}
+
+
+.logo {
+  text-align: center;
+}
+
+#logo {
+  width: 50%;
+}
+
+header {
+  width: 270px;
+  float: left;
+  position: fixed;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+header {
+  display: block;
+}
+
+section {
+  width: 500px;
+  float: right;
+  padding-bottom: 50px;
+}
+
+footer {
+  width: 100vw;
+  float: left;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+@media print, screen and (max-width: 960px) {
+  header, section, footer {
+    float: none;
+    position: static;
+    width: auto;
+  }
+  footer {
+    width: 100vw;
+    margin-left: -58px;
+    margin-bottom: -50px;
+  }
+}
