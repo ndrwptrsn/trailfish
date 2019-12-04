@@ -45,7 +45,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
   private _center: Array<number> = [0.1278, 51.5074];
   private _basemap = "topo";
   private _loaded = false;
-  private _view: esri.MapView = null;
+  private _view: esri.SceneView = null;
 
   get mapLoaded(): boolean {
     return this._loaded;
