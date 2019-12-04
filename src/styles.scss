@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans&display=swap');
+
+$base-color: #000000;
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0px;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  color: lighten( $base-color, 60% );
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  // background: purple;
+}
+
+.content {
+  flex: 1;
+  // max-height: 80vh;
+}
+
+.title {
+  // display: inline-block;
+  margin-left: 10px;
+}
+
+.logo {
+  margin-right: 10px;
+  text-align: center;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo {
+  width: 100%;
+  display: inline-block;
+}
+
+
+.esri-view {
+  height: 100%;
+}
+
+header {
+  display: flex;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  padding: 10px;
+  height: 150px;
+}
+
+
+.map_container {
+  width: 100vw;
+  float: left;
+  // position: fixed;
+  padding: 0px;
+  // left: 0px;
+  // top: 0px;
+  // -webkit-font-smoothing: subpixel-antialiased;
+}
