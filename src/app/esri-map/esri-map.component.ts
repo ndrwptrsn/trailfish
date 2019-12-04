@@ -43,7 +43,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
    */
   private _zoom = 10;
   private _center: Array<number> = [0.1278, 51.5074];
-  private _basemap = "streets-navigation-vector";
+  private _basemap = "topo";
   private _loaded = false;
   private _view: esri.MapView = null;
 
@@ -168,16 +168,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
       // Initialize the MapView
       const sceneViewProperties: esri.SceneViewProperties = {
         container: this.mapViewEl.nativeElement,
-        // center: this._center,
-        // zoom: this._zoom,
-        // center: [-118.24532,34.05398],
-        // zoom: 100,
         environment: {
-          // background: {
-          //   type: "color",
-          //   color: [255, 252, 244, 1]
-          // },
-          // starsEnabled: true,
           atmosphereEnabled: true,
           atmosphere: {
               quality: 'high'
@@ -185,15 +176,17 @@ export class EsriMapComponent implements OnInit, OnDestroy {
         },
         map: map,
         camera: {
+          fov: 55,
+          heading: 289.25558626846873,
           position: {  // observation point
-            x: -122.6750,
-            y: 45.5051,
-            z: 250 // altitude in meters
+            latitude: 45.52554549223129,
+            longitude: -122.6753007357145,
+            z: 1600
           },
-          tilt: 65  // perspective in degrees
+          tilt: 73.1885175694349  // perspective in degrees
         }
       };
-// 45.5051° N, 122.6750° W
+
       this._view = new EsriSceneView(sceneViewProperties);
       await this._view.when();
 
@@ -202,12 +195,18 @@ export class EsriMapComponent implements OnInit, OnDestroy {
         var driveTimeCutoffs = [10]; // Minutes (default)
         // var serviceAreaParams = this.createServiceAreaParams(locationGraphic, driveTimeCutoffs, this._view.spatialReference, FeatureSet, ServiceAreaParams);
         // this.executeServiceAreaTask(serviceAreaTask, serviceAreaParams, Graphic);
+        this.getCamera();
       });
 
       return this._view;
     } catch (error) {
       console.log("EsriLoader: ", error);
     }
+  }
+
+  getCamera() {
+    var camera = this._view.camera.clone();
+    console.log(camera);
   }
 
   ngOnInit() {
