@@ -1,20 +1,28 @@
-<header>
-  <h1>trailfish</h1>
-  <h2>route calculator</h2>
-</header>
+<div class="container">
+  <header>
+    <div class="logo">
+      <img src="../assets/running_fish.svg" alt="running fish" id="logo">
+    </div>
 
-<section>
-  <div class="logo">
-    <img src="../assets/running_fish.svg" alt="running fish" id="logo">
-  </div>
-  <p>trail fish uses esri maps api to calculate route speed, distance, or time.</p>
-</section>
+    <div class="title">
+      <h1>{{ this.title }}</h1>
+      <h2>{{ appType }}</h2>
+    </div>
 
-<footer>
-  <app-esri-map
-  [center]="mapCenter"
-  [basemap]="basemapType"
-  [zoom]="mapZoomLevel"
-  (mapLoadedEvent)="mapLoadedEvent($event)"
-  ></app-esri-map>
-</footer>
+  </header>
+
+  <main class="content">
+    <app-esri-map
+    [center]="mapCenter"
+    [basemap]="basemapType"
+    [zoom]="mapZoomLevel"
+    (mapLoadedEvent)="mapLoadedEvent($event)"
+    ></app-esri-map>
+    <!-- <p>ssd</p> -->
+  </main>
+
+
+  <footer>
+    <p>{{ title | titlecase}} is a simple {{ appType }} for hikers. It's a work in progress.</p><p>Made with 🍕 by <a href="http://ndrwptrsn.com" target="blank">ndrwptrsn</a></p>
+  </footer>
+</div>

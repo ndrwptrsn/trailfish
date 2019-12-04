@@ -12,9 +12,11 @@ export class AppComponent {
   basemapType = 'satellite';
   mapZoomLevel = 12;
 
+  title = 'trailfish';
+  appType = 'route calculator';
+
   // See app.component.html
   mapLoadedEvent(status: boolean) {
     console.log('The map loaded: ' + status);
   }
 }
-

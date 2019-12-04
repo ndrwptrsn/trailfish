@@ -43,7 +43,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
    */
   private _zoom = 10;
   private _center: Array<number> = [0.1278, 51.5074];
-  private _basemap = "topo-vector";
+  private _basemap = "streets-navigation-vector";
   private _loaded = false;
   private _view: esri.MapView = null;
 
@@ -80,13 +80,65 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
   constructor() {}
 
+  createGraphic(point, view, Graphic) {
+    // Remove any existing graphics
+    view.graphics.removeAll();
+    // Create a and add the point
+    var graphic = new Graphic({
+      geometry: point,
+      symbol: {
+        type: "simple-marker",
+        color: "white",
+        size: 8
+      }
+    });
+    view.graphics.add(graphic);
+    return graphic;
+  }
+
+  createServiceAreaParams(locationGraphic, driveTimeCutoffs, outSpatialReference, FeatureSet, ServiceAreaParams) {
+        // Create one or more locations (facilities) to solve for
+        var featureSet = new FeatureSet({
+          features: [locationGraphic]
+        });
+        // Set all of the input parameters for the service
+        var taskParameters = new ServiceAreaParams({
+          facilities: featureSet, // Location(s) to start from
+          defaultBreaks: driveTimeCutoffs, // One or more drive time cutoff values
+          outSpatialReference: outSpatialReference // Spatial reference to match the view
+        });
+        return taskParameters;
+      }
+
+      executeServiceAreaTask(serviceAreaTask, serviceAreaParams, graphic) {
+        return serviceAreaTask.solve(serviceAreaParams)
+          .then((result) => {
+            if (result.serviceAreaPolygons.length) {
+              // Draw each service area polygon
+              result.serviceAreaPolygons.forEach((graphic) => {
+                graphic.symbol = {
+                  type: "simple-fill",
+                  color: "rgba(255,50,50,.25)"
+                }
+                this._view.graphics.add(graphic,0);
+              });
+            }
+          }, (error) => {
+            console.log(error);
+          });
+      }
+
   async initializeMap() {
     try {
       // Load the modules for the ArcGIS API for JavaScript
-      const [EsriMap, EsriMapView, FeatureLayer] = await loadModules([
+      const [EsriMap, EsriSceneView, FeatureLayer, ServiceAreaTask, ServiceAreaParams, FeatureSet, Graphic] = await loadModules([
         "esri/Map",
         "esri/views/SceneView",
-        "esri/layers/FeatureLayer"
+        "esri/layers/FeatureLayer",
+        "esri/tasks/ServiceAreaTask",
+        "esri/tasks/support/ServiceAreaParameters",
+        "esri/tasks/support/FeatureSet",
+        "esri/Graphic"
       ]);
 
       // Configure the Map
@@ -101,26 +153,57 @@ export class EsriMapComponent implements OnInit, OnDestroy {
         url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0"
       });
 
+      var trailsLayer = new FeatureLayer({
+        url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0"
+      });
+
+      var serviceAreaTask = new ServiceAreaTask({
+        url: "https://utility.arcgis.com/usrsvcs/appservices/CKaWSDk7AKZMJxnO/rest/services/World/ServiceAreas/NAServer/ServiceArea_World/solveServiceArea"
+      });
+
       map.add(trailheadsLayer);
 
+      map.add(trailsLayer);
+
       // Initialize the MapView
-      const mapViewProperties: esri.MapViewProperties = {
+      const sceneViewProperties: esri.SceneViewProperties = {
         container: this.mapViewEl.nativeElement,
         // center: this._center,
         // zoom: this._zoom,
+        // center: [-118.24532,34.05398],
+        // zoom: 100,
+        environment: {
+          // background: {
+          //   type: "color",
+          //   color: [255, 252, 244, 1]
+          // },
+          // starsEnabled: true,
+          atmosphereEnabled: true,
+          atmosphere: {
+              quality: 'high'
+            },
+        },
         map: map,
         camera: {
           position: {  // observation point
-            x: -118.80800,
-            y: 33.96100,
-            z: 25000 // altitude in meters
+            x: -122.6750,
+            y: 45.5051,
+            z: 250 // altitude in meters
           },
           tilt: 65  // perspective in degrees
         }
       };
-
-      this._view = new EsriMapView(mapViewProperties);
+// 45.5051° N, 122.6750° W
+      this._view = new EsriSceneView(sceneViewProperties);
       await this._view.when();
+
+      this._view.on("click", (event) => {
+        var locationGraphic = this.createGraphic(event.mapPoint, this._view, Graphic);
+        var driveTimeCutoffs = [10]; // Minutes (default)
+        // var serviceAreaParams = this.createServiceAreaParams(locationGraphic, driveTimeCutoffs, this._view.spatialReference, FeatureSet, ServiceAreaParams);
+        // this.executeServiceAreaTask(serviceAreaTask, serviceAreaParams, Graphic);
+      });
+
       return this._view;
     } catch (error) {
       console.log("EsriLoader: ", error);
