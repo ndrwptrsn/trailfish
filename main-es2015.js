@@ -312,7 +312,7 @@ let AppComponent = class AppComponent {
         this.basemapType = 'satellite';
         this.mapZoomLevel = 12;
         this.title = 'trailfish';
-        this.appType = 'forest park route calculator';
+        this.appType = 'trails';
     }
     // See app.component.html
     mapLoadedEvent(status) {
