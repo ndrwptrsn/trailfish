@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <header>\n    <div class=\"logo\">\n      <img src=\"../assets/running_fish.svg\" alt=\"running fish\" id=\"logo\">\n    </div>\n\n    <div class=\"title\">\n      <h1>{{ this.title }}</h1>\n      <h2>{{ appType }}</h2>\n    </div>\n\n  </header>\n\n  <main class=\"content\">\n    <app-esri-map\n    [center]=\"mapCenter\"\n    [basemap]=\"basemapType\"\n    [zoom]=\"mapZoomLevel\"\n    (mapLoadedEvent)=\"mapLoadedEvent($event)\"\n    ></app-esri-map>\n    <!-- <p>ssd</p> -->\n  </main>\n\n\n  <footer>\n    <p>{{ title | titlecase}} is a simple {{ appType }} for hikers.</p><p>Made with 🍕 by <a href=\"http://ndrwptrsn.com\" target=\"blank\">ndrwptrsn</a></p>\n  </footer>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <header>\n    <div class=\"logo\">\n      <img src=\"assets/running_fish.svg\" alt=\"running fish\" id=\"logo\">\n    </div>\n\n    <div class=\"title\">\n      <h1>{{ this.title }}</h1>\n      <h2>{{ appType }}</h2>\n    </div>\n\n  </header>\n\n  <main class=\"content\">\n    <app-esri-map\n    [center]=\"mapCenter\"\n    [basemap]=\"basemapType\"\n    [zoom]=\"mapZoomLevel\"\n    (mapLoadedEvent)=\"mapLoadedEvent($event)\"\n    ></app-esri-map>\n    <!-- <p>ssd</p> -->\n  </main>\n\n\n  <footer>\n    <p>{{ title | titlecase}} is a simple {{ appType }} for hikers.</p><p>Made with 🍕 by <a href=\"http://ndrwptrsn.com\" target=\"blank\">ndrwptrsn</a></p>\n  </footer>\n</div>\n");
 
 /***/ }),
 

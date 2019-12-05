@@ -131,6 +131,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
   async initializeMap() {
     try {
       // Load the modules for the ArcGIS API for JavaScript
+      // SimpleFillSymbol, SimpleLineSymbol, SimpleRender
       const [EsriMap, EsriSceneView, FeatureLayer, ServiceAreaTask, ServiceAreaParams, FeatureSet, Graphic] = await loadModules([
         "esri/Map",
         "esri/views/SceneView",
@@ -138,7 +139,10 @@ export class EsriMapComponent implements OnInit, OnDestroy {
         "esri/tasks/ServiceAreaTask",
         "esri/tasks/support/ServiceAreaParameters",
         "esri/tasks/support/FeatureSet",
-        "esri/Graphic"
+        "esri/Graphic",
+        // "esri/symbols/SimpleFillSymbol",
+        // "esri/symbols/SimpleLineSymbol",
+        // "esri/renderers/SimpleRenderer",
       ]);
 
       // Configure the Map
@@ -154,8 +158,21 @@ export class EsriMapComponent implements OnInit, OnDestroy {
       });
 
       var trailsLayer = new FeatureLayer({
-        url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0"
+        url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData_ZoningCode/MapServer/138",
+
       });
+
+      // var simpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 1));
+      // var simpleRender = new SimpleRender(simpleFillSymbol);
+
+      trailsLayer.renderer = {
+        type: "simple",  // autocasts as new SimpleRenderer()
+        symbol: {
+          type: "simple-line",  // autocasts as new SimpleMarkerSymbol()
+          color: "red",
+          width: 2.5
+        }
+      };
 
       var serviceAreaTask = new ServiceAreaTask({
         url: "https://utility.arcgis.com/usrsvcs/appservices/CKaWSDk7AKZMJxnO/rest/services/World/ServiceAreas/NAServer/ServiceArea_World/solveServiceArea"
@@ -175,15 +192,25 @@ export class EsriMapComponent implements OnInit, OnDestroy {
             },
         },
         map: map,
+        // camera: {
+        //   fov: 55,
+        //   heading: 289.25558626846873,
+        //   position: {  // observation point
+        //     latitude: 45.52554549223129,
+        //     longitude: -122.6753007357145,
+        //     z: 1600
+        //   },
+        //   tilt: 73.1885175694349  // perspective in degrees
+        // }
         camera: {
           fov: 55,
-          heading: 289.25558626846873,
+          heading: 256.67540649140903,
           position: {  // observation point
-            latitude: 45.52554549223129,
-            longitude: -122.6753007357145,
-            z: 1600
+            latitude: 45.54176622616609,
+            longitude: -122.73520013061612,
+            z: 19500
           },
-          tilt: 73.1885175694349  // perspective in degrees
+          tilt: 0 // perspective in degrees
         }
       };
 
@@ -191,11 +218,11 @@ export class EsriMapComponent implements OnInit, OnDestroy {
       await this._view.when();
 
       this._view.on("click", (event) => {
-        var locationGraphic = this.createGraphic(event.mapPoint, this._view, Graphic);
-        var driveTimeCutoffs = [10]; // Minutes (default)
+        // var locationGraphic = this.createGraphic(event.mapPoint, this._view, Graphic);
+        // var driveTimeCutoffs = [10]; // Minutes (default)
         // var serviceAreaParams = this.createServiceAreaParams(locationGraphic, driveTimeCutoffs, this._view.spatialReference, FeatureSet, ServiceAreaParams);
         // this.executeServiceAreaTask(serviceAreaTask, serviceAreaParams, Graphic);
-        this.getCamera();
+        // this.getCamera();
       });
 
       return this._view;

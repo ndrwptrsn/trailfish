@@ -33,6 +33,12 @@ h2 {
   margin-left: 10px;
 }
 
+.footer_link {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+}
+
 .logo {
   margin-right: 10px;
   text-align: center;
@@ -52,16 +58,20 @@ h2 {
   height: 100%;
 }
 
-header {
+.header {
   display: flex;
   height: 150px;
   align-items: center;
   justify-content: center;
 }
 
+header {
+  height: 250px;
+}
+
 footer {
   padding: 10px;
-  height: 150px;
+  height: 40px;
 }
 
 
