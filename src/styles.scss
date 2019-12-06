@@ -16,20 +16,29 @@ h2 {
   color: lighten( $base-color, 60% );
 }
 
+header {
+  display: flex;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+}
+
+footer {
+  padding: 10px;
+  height: 40px;
+}
+
 .container {
   display: flex;
   height: 100vh;
   flex-direction: column;
-  // background: purple;
 }
 
 .content {
   flex: 1;
-  // max-height: 80vh;
 }
 
 .title {
-  // display: inline-block;
   margin-left: 10px;
 }
 
@@ -53,34 +62,12 @@ h2 {
   display: inline-block;
 }
 
-
 .esri-view {
   height: 100%;
 }
 
-.header {
-  display: flex;
-  height: 150px;
-  align-items: center;
-  justify-content: center;
-}
-
-header {
-  height: 250px;
-}
-
-footer {
-  padding: 10px;
-  height: 40px;
-}
-
-
 .map_container {
   width: 100vw;
   float: left;
-  // position: fixed;
   padding: 0px;
-  // left: 0px;
-  // top: 0px;
-  // -webkit-font-smoothing: subpixel-antialiased;
 }

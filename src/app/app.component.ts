@@ -13,7 +13,7 @@ export class AppComponent {
   mapZoomLevel = 12;
 
   title = 'trailfish';
-  appType = 'forest park route calculator';
+  appType = 'trails of forest park';
 
   // See app.component.html
   mapLoadedEvent(status: boolean) {
