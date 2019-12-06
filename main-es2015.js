@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n\n  <header>\n\n    <div class=\"header\">\n\n      <div class=\"logo\">\n        <img src=\"assets/running_fish.svg\" alt=\"running fish\" id=\"logo\">\n      </div>\n\n      <div class=\"title\">\n        <h1>{{ this.title }}</h1>\n        <h2>{{ appType }}</h2>\n      </div>\n\n    </div>\n\n  </header>\n\n  <main class=\"content\">\n    <app-esri-map\n    [center]=\"mapCenter\"\n    [basemap]=\"basemapType\"\n    [zoom]=\"mapZoomLevel\"\n    (mapLoadedEvent)=\"mapLoadedEvent($event)\"\n    ></app-esri-map>\n  </main>\n\n  <footer>\n\n    <div class=\"footer_link\">\n      <p>Made with 🍕 by <a href=\"http://ndrwptrsn.com\" target=\"blank\">ndrwptrsn</a></p>\n    </div>\n\n  </footer>\n\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n\n  <header>\n\n      <div class=\"logo\">\n        <img src=\"assets/running_fish.svg\" alt=\"running fish\" id=\"logo\">\n      </div>\n\n      <div class=\"title\">\n        <h1>{{ this.title }}</h1>\n        <h2>{{ appType }}</h2>\n      </div>\n\n  </header>\n\n  <main class=\"content\">\n    <app-esri-map\n    [center]=\"mapCenter\"\n    [basemap]=\"basemapType\"\n    [zoom]=\"mapZoomLevel\"\n    (mapLoadedEvent)=\"mapLoadedEvent($event)\"\n    ></app-esri-map>\n  </main>\n\n  <footer>\n\n    <div class=\"footer_link\">\n      <p>Made with 🍕 by <a href=\"http://ndrwptrsn.com\" target=\"blank\">ndrwptrsn</a></p>\n    </div>\n\n  </footer>\n\n</div>\n");
 
 /***/ }),
 
@@ -312,7 +312,7 @@ let AppComponent = class AppComponent {
         this.basemapType = 'satellite';
         this.mapZoomLevel = 12;
         this.title = 'trailfish';
-        this.appType = 'trails';
+        this.appType = 'trails of forest park';
     }
     // See app.component.html
     mapLoadedEvent(status) {
@@ -375,7 +375,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("\n@import url(\"https://js.arcgis.com/4.12/esri/css/main.css\");\n/* import the required JSAPI css */\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hbmRyZXdwZXRlcnNvbi9TaXRlcy90cmFpbGZpc2gvc3JjL2FwcC9lc3JpLW1hcC9lc3JpLW1hcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ1EsMkRBQUE7QUFEUixrQ0FBQSIsImZpbGUiOiJzcmMvYXBwL2VzcmktbWFwL2VzcmktbWFwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogaW1wb3J0IHRoZSByZXF1aXJlZCBKU0FQSSBjc3MgKi9cbkBpbXBvcnQgdXJsKCdodHRwczovL2pzLmFyY2dpcy5jb20vNC4xMi9lc3JpL2Nzcy9tYWluLmNzcycpO1xuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("\n@import url(\"https://js.arcgis.com/4.12/esri/css/main.css\");\n/* import the required JSAPI css */\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hbmRyZXdwZXRlcnNvbi9zaXRlcy90cmFpbGZpc2gvc3JjL2FwcC9lc3JpLW1hcC9lc3JpLW1hcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ1EsMkRBQUE7QUFEUixrQ0FBQSIsImZpbGUiOiJzcmMvYXBwL2VzcmktbWFwL2VzcmktbWFwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogaW1wb3J0IHRoZSByZXF1aXJlZCBKU0FQSSBjc3MgKi9cbkBpbXBvcnQgdXJsKCdodHRwczovL2pzLmFyY2dpcy5jb20vNC4xMi9lc3JpL2Nzcy9tYWluLmNzcycpO1xuIl19 */");
 
 /***/ }),
 
@@ -689,7 +689,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_2__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/andrewpeterson/Sites/trailfish/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/andrewpeterson/sites/trailfish/src/main.ts */"./src/main.ts");
 
 
 /***/ })
