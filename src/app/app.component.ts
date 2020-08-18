@@ -12,7 +12,7 @@ export class AppComponent {
   mapZoomLevel = 12;
 
   title = 'trailfish';
-  appType = 'trails';
+  appType = 'trails of forest park';
 
   mapLoadedEvent(status: boolean) {
     console.log('The map loaded: ' + status);

@@ -1,5 +1,7 @@
 # trailfish
 
+![Logo](src/assets/running_fish.svg)
+
 This branch contains a simple but complete application that uses the ArcGIS API for JavaScript, an enterprise geospatial API, and Angular CLI. It uses esri-loader, a small library that helps load ArcGIS JavaScript API modules (v3.x or v4.x) in non-Dojo applications.
 
 To use arcgis-webpack-plugin instead of esri-loader to load the ArcGIS API for JavaScript modules, check out the [`@arcgis-webpack-angular`](https://github.com/Esri/trailfish/tree/arcgis-webpack-angular) branch of this repo.

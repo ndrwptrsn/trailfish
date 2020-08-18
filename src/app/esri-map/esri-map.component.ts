@@ -131,6 +131,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
       });
 
+
       trailsLayer.renderer = {
         type: "simple",
         symbol: {
@@ -148,7 +149,6 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
       map.add(trailsLayer);
 
-      // Initialize the MapView
       const sceneViewProperties: esri.SceneViewProperties = {
         container: this.mapViewEl.nativeElement,
         environment: {
@@ -158,7 +158,6 @@ export class EsriMapComponent implements OnInit, OnDestroy {
             },
         },
         map: map,
-        // 3D View
         camera: {
           fov: 55,
           heading: 289.25558626846873,
@@ -167,7 +166,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
             longitude: -122.6753007357145,
             z: 1600
           },
-          tilt: 73.1885175694349  // perspective in degrees
+          tilt: 0
         }
         // 2D View
         // camera: {
@@ -198,7 +197,6 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeMap().then(mapView => {
-      console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
       this.mapLoadedEvent.emit(true);
     });
