@@ -32,7 +32,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n  <header>\n    <div class=\"logo\">\n      <img src=\"assets/running_fish.svg\" alt=\"running fish\" id=\"logo\">\n    </div>\n\n    <div class=\"title\">\n      <h1>{{ this.title }}</h1>\n      <h2>{{ appType }}</h2>\n    </div>\n\n  </header>\n\n  <main class=\"content\">\n    <app-esri-map\n    [center]=\"mapCenter\"\n    [basemap]=\"basemapType\"\n    [zoom]=\"mapZoomLevel\"\n    (mapLoadedEvent)=\"mapLoadedEvent($event)\"\n    ></app-esri-map>\n    <!-- <p>ssd</p> -->\n  </main>\n\n\n  <footer>\n    <p>{{ title | titlecase}} is a simple {{ appType }} for hikers.</p><p>Made with 🍕 by <a href=\"http://ndrwptrsn.com\" target=\"blank\">ndrwptrsn</a></p>\n  </footer>\n</div>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"container\">\n\n  <header>\n\n    <div class=\"header\">\n\n      <div class=\"logo\">\n        <img src=\"assets/running_fish.svg\" alt=\"running fish\" id=\"logo\">\n      </div>\n\n      <div class=\"title\">\n        <h1>{{ this.title }}</h1>\n        <h2>{{ appType }}</h2>\n      </div>\n\n    </div>\n\n  </header>\n\n  <main class=\"content\">\n    <app-esri-map\n    [center]=\"mapCenter\"\n    [basemap]=\"basemapType\"\n    [zoom]=\"mapZoomLevel\"\n    (mapLoadedEvent)=\"mapLoadedEvent($event)\"\n    ></app-esri-map>\n  </main>\n\n  <footer>\n\n    <div class=\"footer_link\">\n      <p>Made with 🍕 by <a href=\"http://ndrwptrsn.com\" target=\"blank\">ndrwptrsn</a></p>\n    </div>\n\n  </footer>\n\n</div>\n");
 
 /***/ }),
 
@@ -312,7 +312,7 @@ let AppComponent = class AppComponent {
         this.basemapType = 'satellite';
         this.mapZoomLevel = 12;
         this.title = 'trailfish';
-        this.appType = 'route calculator';
+        this.appType = 'trails';
     }
     // See app.component.html
     mapLoadedEvent(status) {
@@ -493,6 +493,7 @@ let EsriMapComponent = class EsriMapComponent {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             try {
                 // Load the modules for the ArcGIS API for JavaScript
+                // SimpleFillSymbol, SimpleLineSymbol, SimpleRender
                 const [EsriMap, EsriSceneView, FeatureLayer, ServiceAreaTask, ServiceAreaParams, FeatureSet, Graphic] = yield Object(esri_loader__WEBPACK_IMPORTED_MODULE_2__["loadModules"])([
                     "esri/Map",
                     "esri/views/SceneView",
@@ -500,7 +501,7 @@ let EsriMapComponent = class EsriMapComponent {
                     "esri/tasks/ServiceAreaTask",
                     "esri/tasks/support/ServiceAreaParameters",
                     "esri/tasks/support/FeatureSet",
-                    "esri/Graphic"
+                    "esri/Graphic",
                 ]);
                 // Configure the Map
                 const mapProperties = {
@@ -512,8 +513,18 @@ let EsriMapComponent = class EsriMapComponent {
                     url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0"
                 });
                 var trailsLayer = new FeatureLayer({
-                    url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0"
+                    url: "https://www.portlandmaps.com/arcgis/rest/services/Public/COP_OpenData_ZoningCode/MapServer/138",
                 });
+                // var simpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 1));
+                // var simpleRender = new SimpleRender(simpleFillSymbol);
+                trailsLayer.renderer = {
+                    type: "simple",
+                    symbol: {
+                        type: "simple-line",
+                        color: "red",
+                        width: 2.5
+                    }
+                };
                 var serviceAreaTask = new ServiceAreaTask({
                     url: "https://utility.arcgis.com/usrsvcs/appservices/CKaWSDk7AKZMJxnO/rest/services/World/ServiceAreas/NAServer/ServiceArea_World/solveServiceArea"
                 });
@@ -529,25 +540,35 @@ let EsriMapComponent = class EsriMapComponent {
                         },
                     },
                     map: map,
+                    // camera: {
+                    //   fov: 55,
+                    //   heading: 289.25558626846873,
+                    //   position: {  // observation point
+                    //     latitude: 45.52554549223129,
+                    //     longitude: -122.6753007357145,
+                    //     z: 1600
+                    //   },
+                    //   tilt: 73.1885175694349  // perspective in degrees
+                    // }
                     camera: {
                         fov: 55,
-                        heading: 289.25558626846873,
+                        heading: 256.67540649140903,
                         position: {
-                            latitude: 45.52554549223129,
-                            longitude: -122.6753007357145,
-                            z: 1600
+                            latitude: 45.54176622616609,
+                            longitude: -122.73520013061612,
+                            z: 19500
                         },
-                        tilt: 73.1885175694349 // perspective in degrees
+                        tilt: 0 // perspective in degrees
                     }
                 };
                 this._view = new EsriSceneView(sceneViewProperties);
                 yield this._view.when();
                 this._view.on("click", (event) => {
-                    var locationGraphic = this.createGraphic(event.mapPoint, this._view, Graphic);
-                    var driveTimeCutoffs = [10]; // Minutes (default)
+                    // var locationGraphic = this.createGraphic(event.mapPoint, this._view, Graphic);
+                    // var driveTimeCutoffs = [10]; // Minutes (default)
                     // var serviceAreaParams = this.createServiceAreaParams(locationGraphic, driveTimeCutoffs, this._view.spatialReference, FeatureSet, ServiceAreaParams);
                     // this.executeServiceAreaTask(serviceAreaTask, serviceAreaParams, Graphic);
-                    this.getCamera();
+                    // this.getCamera();
                 });
                 return this._view;
             }

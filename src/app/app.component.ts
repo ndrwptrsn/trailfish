@@ -7,15 +7,13 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  // Set our map properties
   mapCenter = [-122.4194, 37.7749];
   basemapType = 'satellite';
   mapZoomLevel = 12;
 
   title = 'trailfish';
-  appType = 'forest park route calculator';
+  appType = 'trails';
 
-  // See app.component.html
   mapLoadedEvent(status: boolean) {
     console.log('The map loaded: ' + status);
   }

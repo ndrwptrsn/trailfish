@@ -1,16 +1,3 @@
-/*
-  Copyright 2019 Esri
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
-
 import {
   Component,
   OnInit,
@@ -22,7 +9,7 @@ import {
   OnDestroy
 } from "@angular/core";
 import { loadModules } from "esri-loader";
-import esri = __esri; // Esri TypeScript Types
+import esri = __esri;
 
 @Component({
   selector: "app-esri-map",
@@ -32,15 +19,8 @@ import esri = __esri; // Esri TypeScript Types
 export class EsriMapComponent implements OnInit, OnDestroy {
   @Output() mapLoadedEvent = new EventEmitter<boolean>();
 
-  // The <div> where we will place the map
   @ViewChild("mapViewNode", { static: true }) private mapViewEl: ElementRef;
 
-  /**
-   * _zoom sets map zoom
-   * _center sets map center
-   * _basemap sets type of map
-   * _loaded provides map loaded status
-   */
   private _zoom = 10;
   private _center: Array<number> = [0.1278, 51.5074];
   private _basemap = "topo";
@@ -81,9 +61,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
   constructor() {}
 
   createGraphic(point, view, Graphic) {
-    // Remove any existing graphics
     view.graphics.removeAll();
-    // Create a and add the point
     var graphic = new Graphic({
       geometry: point,
       symbol: {
@@ -97,15 +75,13 @@ export class EsriMapComponent implements OnInit, OnDestroy {
   }
 
   createServiceAreaParams(locationGraphic, driveTimeCutoffs, outSpatialReference, FeatureSet, ServiceAreaParams) {
-        // Create one or more locations (facilities) to solve for
         var featureSet = new FeatureSet({
           features: [locationGraphic]
         });
-        // Set all of the input parameters for the service
         var taskParameters = new ServiceAreaParams({
-          facilities: featureSet, // Location(s) to start from
-          defaultBreaks: driveTimeCutoffs, // One or more drive time cutoff values
-          outSpatialReference: outSpatialReference // Spatial reference to match the view
+          facilities: featureSet,
+          defaultBreaks: driveTimeCutoffs,
+          outSpatialReference: outSpatialReference
         });
         return taskParameters;
       }
@@ -114,7 +90,6 @@ export class EsriMapComponent implements OnInit, OnDestroy {
         return serviceAreaTask.solve(serviceAreaParams)
           .then((result) => {
             if (result.serviceAreaPolygons.length) {
-              // Draw each service area polygon
               result.serviceAreaPolygons.forEach((graphic) => {
                 graphic.symbol = {
                   type: "simple-fill",
@@ -130,8 +105,6 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
   async initializeMap() {
     try {
-      // Load the modules for the ArcGIS API for JavaScript
-      // SimpleFillSymbol, SimpleLineSymbol, SimpleRender
       const [EsriMap, EsriSceneView, FeatureLayer, ServiceAreaTask, ServiceAreaParams, FeatureSet, Graphic] = await loadModules([
         "esri/Map",
         "esri/views/SceneView",
@@ -140,12 +113,8 @@ export class EsriMapComponent implements OnInit, OnDestroy {
         "esri/tasks/support/ServiceAreaParameters",
         "esri/tasks/support/FeatureSet",
         "esri/Graphic",
-        // "esri/symbols/SimpleFillSymbol",
-        // "esri/symbols/SimpleLineSymbol",
-        // "esri/renderers/SimpleRenderer",
       ]);
 
-      // Configure the Map
       const mapProperties: esri.MapProperties = {
         basemap: this._basemap,
         ground: 'world-elevation'
@@ -162,13 +131,10 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
       });
 
-      // var simpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_NULL, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([255, 0, 0]), 1));
-      // var simpleRender = new SimpleRender(simpleFillSymbol);
-
       trailsLayer.renderer = {
-        type: "simple",  // autocasts as new SimpleRenderer()
+        type: "simple",
         symbol: {
-          type: "simple-line",  // autocasts as new SimpleMarkerSymbol()
+          type: "simple-line",
           color: "red",
           width: 2.5
         }
@@ -192,38 +158,32 @@ export class EsriMapComponent implements OnInit, OnDestroy {
             },
         },
         map: map,
-        // camera: {
-        //   fov: 55,
-        //   heading: 289.25558626846873,
-        //   position: {  // observation point
-        //     latitude: 45.52554549223129,
-        //     longitude: -122.6753007357145,
-        //     z: 1600
-        //   },
-        //   tilt: 73.1885175694349  // perspective in degrees
-        // }
+        // 3D View
         camera: {
           fov: 55,
-          heading: 256.67540649140903,
+          heading: 289.25558626846873,
           position: {  // observation point
-            latitude: 45.54176622616609,
-            longitude: -122.73520013061612,
-            z: 19500
+            latitude: 45.52554549223129,
+            longitude: -122.6753007357145,
+            z: 1600
           },
-          tilt: 0 // perspective in degrees
+          tilt: 73.1885175694349  // perspective in degrees
         }
+        // 2D View
+        // camera: {
+        //   fov: 55,
+        //   heading: 256.67540649140903,
+        //   position: {
+        //     latitude: 45.54176622616609,
+        //     longitude: -122.73520013061612,
+        //     z: 19500
+        //   },
+        //   tilt: 0
+        // }
       };
 
       this._view = new EsriSceneView(sceneViewProperties);
       await this._view.when();
-
-      this._view.on("click", (event) => {
-        // var locationGraphic = this.createGraphic(event.mapPoint, this._view, Graphic);
-        // var driveTimeCutoffs = [10]; // Minutes (default)
-        // var serviceAreaParams = this.createServiceAreaParams(locationGraphic, driveTimeCutoffs, this._view.spatialReference, FeatureSet, ServiceAreaParams);
-        // this.executeServiceAreaTask(serviceAreaTask, serviceAreaParams, Graphic);
-        // this.getCamera();
-      });
 
       return this._view;
     } catch (error) {
@@ -237,9 +197,7 @@ export class EsriMapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Initialize MapView and return an instance of MapView
     this.initializeMap().then(mapView => {
-      // The map has been initialized
       console.log("mapView ready: ", this._view.ready);
       this._loaded = this._view.ready;
       this.mapLoadedEvent.emit(true);
@@ -248,7 +206,6 @@ export class EsriMapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this._view) {
-      // destroy the map view
       this._view.container = null;
     }
   }
