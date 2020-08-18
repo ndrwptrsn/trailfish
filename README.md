@@ -22,7 +22,7 @@ If you would like to create your own Angular CLI project from scratch and incorp
 ### Clone or download this repo
 
 ```bash
-  git clone https://github.com/andygup/trailfish.git
+  git clone https://github.com/ndrwptrsn/trailfish.git
 ```
 
 ### Install dependencies
